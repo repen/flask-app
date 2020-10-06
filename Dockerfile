@@ -1,4 +1,5 @@
 #docker build -t flask_app:latest .
+#docker volume create flaskdata
 #docker run --name test_app -v flaskdata:/flaskdata -d -p 8120:5000 flask_app:latest
 FROM python:3.6-alpine
 
