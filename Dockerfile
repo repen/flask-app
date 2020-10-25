@@ -1,19 +1,16 @@
 #docker build -t flask_app:latest .
-#docker volume create flaskdata
-#docker run --name test_app -v flaskdata:/flaskdata -d -p 8120:5000 flask_app:latest
+#docker run --name test_app -d -p 8120:5000 flask_app:latest
+#docker run --name test_app -d -v volume:/site/data -p 8120:5000 flask_app:latest
 FROM python:3.6-alpine
 
-#VOLUME /flaskdata/
+ENV BASE_DIR /site
+EXTERNAL_WORK true
 
-ENV APP_DIR /site
-ENV DATA /flaskdata
-WORKDIR ${APP_DIR}
+WORKDIR ${BASE_DIR}
 
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
-COPY app ${APP_DIR}/app
-ENV WORK_DIR ${APP_DIR}/app
+COPY app_project ${BASE_DIR}
 
-WORKDIR ${WORK_DIR}
 CMD python main.py

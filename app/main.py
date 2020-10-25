@@ -3,7 +3,7 @@ from flask import Flask, render_template
 
 from module01.views import module01
 from module02.views import module02
-from config   import WORK_DIR
+from config   import BASE_DIR, EXTERNAL_WORK
 from waitress import serve
 from datetime import datetime
 
@@ -26,7 +26,7 @@ def error_404(error):
 
 
 def app_run():
-    if WORK_DIR:
+    if EXTERNAL_WORK:
         serve(app, host='0.0.0.0', port=5000)
     else:
         app.run(port=5000, host='0.0.0.0', debug=True)

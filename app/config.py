@@ -1,4 +1,5 @@
 import os
 
-WORK_DIR = os.getenv("WORK_DIR", False)
+BASE_DIR = os.getenv("BASE_DIR", False)
+EXTERNAL_WORK = ("EXTERNAL_WORK", False)
 DATA_DIR = os.getenv("DATA", False)
