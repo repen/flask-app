@@ -11,6 +11,6 @@ WORKDIR ${BASE_DIR}
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
-COPY app_project ${BASE_DIR}
+COPY app ${BASE_DIR}
 
 CMD python main.py
