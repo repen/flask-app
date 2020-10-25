@@ -4,7 +4,7 @@
 FROM python:3.6-alpine
 
 ENV BASE_DIR /site
-EXTERNAL_WORK true
+ENV EXTERNAL_WORK true
 
 WORKDIR ${BASE_DIR}
 
