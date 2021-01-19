@@ -1,8 +1,8 @@
 import os
 from flask import Flask, render_template
 
-from module01.views import module01
-from module02.views import module02
+from f_api.views  import Api
+from f_site.views import fsite
 from config   import BASE_DIR, PRODUCTION_WORK
 from waitress import serve
 from datetime import datetime
@@ -10,8 +10,8 @@ from datetime import datetime
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
-app.register_blueprint( module01 )
-app.register_blueprint( module02 )
+app.register_blueprint( Api )
+app.register_blueprint( fsite )
 
 @app.route('/')
 def index():
