@@ -28,6 +28,7 @@ class BaseEnvironment:
 
 class ProductionEnvironment(BaseEnvironment):
     ENV = "production"
+    PRODUCTION = True
 
 
 class DevelopmentEnvironment(BaseEnvironment):
