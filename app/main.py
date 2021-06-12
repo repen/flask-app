@@ -1,38 +1,44 @@
 import os
-from flask import Flask
-from config   import BASE_DIR, PRODUCTION_WORK
-from datetime import datetime
+import argparse
 
-
-def create_app():
+def create_app(flask_config="default"):
+    from flask import Flask
+    from config import config
+    from database import AppDatabase
+    from core.routing import blueprint_list
 
     app = Flask(__name__)
     app.secret_key = os.urandom(24)
 
-    from f_api.views  import Api
-    from f_site.views import fsite
+    app.config.from_object(config[flask_config])
+    config[flask_config].init_app(app)
+    AppDatabase.init_app(app)
 
-    app.register_blueprint( Api )
-    app.register_blueprint( fsite )
 
-    @app.route('/')
-    def index():
-        the_time = datetime.now().strftime("%A, %d %b %Y %l:%M %p")
-        return "<h1>Welcome! This Application Flask</h1> <p> It is currently {} </p>".format( the_time )
-
-    @app.errorhandler(404)
-    def error_404(error):
-        return "404 Not found", 404
-
+    routes = [app.register_blueprint(x) for x in blueprint_list]
     return app
 
-def app_run(app):
+
+def run_develop(app):
+    app.run(port=5000, host='0.0.0.0', debug=True)
+
+def run_production(app):
     from waitress import serve
-    if PRODUCTION_WORK:
-        serve(app, host='0.0.0.0', port=5000)
-    else:
-        app.run(port=5000, host='0.0.0.0', debug=True)
+    serve(app, host='0.0.0.0', port=5000)
 
 if __name__ == '__main__':
-    Application = create_app()
-    app_run( Application )
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.RawTextHelpFormatter,
+        description='Running the application.'
+    )
+
+    parser.add_argument('-c', '--config', dest='config', type=str, required=True,
+                        help='An example:\npython main.py --config development|testing|default')
+
+    args = parser.parse_args()
+    Application = create_app(args.config)
+
+    if args.config == "testing" or args.config == "development":
+        run_develop(Application)
+    else:
+        run_production(Application)
