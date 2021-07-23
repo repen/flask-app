@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import List, Any
+from typing import List, Any, Union, Dict
 
 
 class IBase:
@@ -26,4 +26,12 @@ class IBackendProtocol(IBase):
     """
     data: List[Any]
     status_code: int
+    message: str
+
+
+@dataclass
+class MessageProtocol(IBase):
+    status_code: int
+    payload: Union[List, Dict, None]
+    action: str
     message: str
