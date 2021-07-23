@@ -5,16 +5,14 @@ def create_app(flask_config="default"):
     from flask import Flask
     from config import config
     from database import AppDatabase
-    from core.routing import blueprint_list
 
     app = Flask(__name__)
     app.secret_key = os.urandom(24)
 
     app.config.from_object(config[flask_config])
-    config[flask_config].init_app(app)
-    AppDatabase.init_app(app)
+    AppDatabase.init_app(app, config[flask_config])
 
-
+    from core.routing import blueprint_list
     routes = [app.register_blueprint(x) for x in blueprint_list]
     return app
 
