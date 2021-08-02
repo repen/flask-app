@@ -13,4 +13,4 @@ RUN pip install -r requirements.txt
 
 COPY app ${BASE_DIR}
 
-CMD python main.py
+CMD python main.py --config=production
