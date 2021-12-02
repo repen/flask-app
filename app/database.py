@@ -1,13 +1,16 @@
 import os
 from config import ProductionEnvironment, DevelopmentEnvironment
 from typing import Union
+# from peewee import SqliteDatabase
 
 class Database:
     def __init__(self, config: Union[DevelopmentEnvironment, ProductionEnvironment]):
-        pass
+        # self.db = SqliteDatabase(DevelopmentEnvironment.SQLITE_PATH,
+        #                          pragmas={'journal_mode': 'wal', })
+        self.db = None
 
     def get(self):
-        return {}
+        return self.db
 
 class AppDatabase:
 
