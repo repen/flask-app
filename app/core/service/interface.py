@@ -11,23 +11,6 @@ class IBase:
         return self.__dict__
 
 
-@dataclass
-class IRequestProtocol(IBase):
-    """Frontend Request protocol
-    """
-    action: str
-    arguments: dict
-    secret: field(default="secret")
-
-
-@dataclass
-class IBackendProtocol(IBase):
-    """Backend Request protocol
-    """
-    data: List[Any]
-    status_code: int
-    message: str
-
 
 @dataclass
 class MessageProtocol(IBase):

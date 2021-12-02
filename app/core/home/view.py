@@ -1,11 +1,11 @@
 from flask import Blueprint, jsonify
-from core.service.interface import IBackendProtocol
+from core.service.interface import MessageProtocol
 from datetime import datetime
 
 
 home_bp = Blueprint('home', __name__)
-result01 = IBackendProtocol(message="Successful", data=[1,2,3], status_code=200)
-result02 = IBackendProtocol(message="Error", data=[], status_code=403)
+result01 = MessageProtocol(message="Successful", payload=[1,2,3], status_code=200, action="")
+result02 = MessageProtocol(message="Error", payload=None, status_code=403, action="")
 
 
 @home_bp.route("/data")
