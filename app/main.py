@@ -11,7 +11,7 @@ def create_app(flask_config="default"):
     from config import config
     from database import AppDatabase
 
-    app = Flask(__name__, static_folder="core/main/static")
+    app = Flask(__name__, static_folder="core/main/static", template_folder="templates")
     app.secret_key = os.urandom(24)
 
     app.config.from_object(config[flask_config])
