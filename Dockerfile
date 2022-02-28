@@ -3,14 +3,20 @@
 #docker run --name test_app -d -v volume:/site/data -p 8120:5000 flask_app:latest
 FROM python:3.8
 
-ENV BASE_DIR /site
-ENV EXTERNAL_WORK true
+
+ENV DIR_SCRIPT /home/pyuser/script
+RUN useradd -ms /bin/bash pyuser && mkdir ${DIR_SCRIPT}
+RUN mkdir /volume
+RUN chown -R pyuser:pyuser /volume
+USER pyuser
+
+ENV BASE_DIR ${DIR_SCRIPT}
 
 WORKDIR ${BASE_DIR}
 
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
-COPY app ${BASE_DIR}
+COPY app ${DIR_SCRIPT}
 
 CMD python main.py --config=production
