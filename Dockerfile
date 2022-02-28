@@ -1,6 +1,6 @@
 #docker build -t flask_app:latest .
 #docker run --name test_app -d -p 8120:5000 flask_app:latest
-#docker run --name test_app -d -v volume:/site/data -p 8120:5000 flask_app:latest
+#docker run --name test_app -d -v volume:/volume -p 8120:5000 flask_app:latest
 FROM python:3.8
 
 
