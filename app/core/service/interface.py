@@ -19,7 +19,7 @@ class IBase:
 
 @dataclass
 class MessageProtocol(IBase):
-    status_code: int
-    payload: Union[List, Dict, None]
-    action: str
-    message: str
+    status_code: int = 200
+    payload: Union[List, Dict, None] = None
+    action: str = str()
+    message: str = str()
