@@ -1,3 +1,3 @@
 ### Description
 
-Flask app structure blueprint
+Еще один проект.
